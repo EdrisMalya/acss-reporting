@@ -29,6 +29,16 @@ class RolesTableSeeder extends Seeder
                 'created_at' => '2022-12-11 06:07:09',
                 'updated_at' => '2022-12-17 08:26:59',
             ),
+            1 => 
+            array (
+                'id' => 2,
+                'created_by' => 3,
+                'updated_by' => 3,
+                'role_group_id' => 1,
+                'name' => 'Acss reporter',
+                'created_at' => '2023-01-15 12:39:31',
+                'updated_at' => '2023-01-15 12:39:37',
+            ),
         ));
         
         

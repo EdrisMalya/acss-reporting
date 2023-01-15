@@ -22,7 +22,7 @@ class PublicWebsitesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'status' => 1,
+                'status' => 0,
                 'logo' => 'website_logo/IT1oCKRlAYmSxkLWzgWQAaEGkGXIWU5yNbVxmv5R.png',
                 'company_name' => 'Zahin Oxus',
                 'title' => 'Plan Your Business And Financial Future',
@@ -39,7 +39,7 @@ class PublicWebsitesTableSeeder extends Seeder
                 'instagram' => 'instagram.com',
                 'copy_right' => 'Copyright 2022 Finco. All right reserved.',
                 'created_at' => '2022-12-28 12:44:35',
-                'updated_at' => '2022-12-29 09:10:48',
+                'updated_at' => '2023-01-15 12:34:02',
             ),
         ));
         

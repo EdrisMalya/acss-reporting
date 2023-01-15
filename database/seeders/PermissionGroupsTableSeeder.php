@@ -131,6 +131,22 @@ class PermissionGroupsTableSeeder extends Seeder
                 'created_at' => '2022-12-28 20:05:48',
                 'updated_at' => '2022-12-28 20:05:48',
             ),
+            14 => 
+            array (
+                'id' => 18,
+                'permission_group_id' => 0,
+                'name' => 'Reports',
+                'created_at' => '2023-01-15 12:35:30',
+                'updated_at' => '2023-01-15 12:35:30',
+            ),
+            15 => 
+            array (
+                'id' => 19,
+                'permission_group_id' => 18,
+                'name' => 'Acss transactions',
+                'created_at' => '2023-01-15 12:36:15',
+                'updated_at' => '2023-01-15 12:36:15',
+            ),
         ));
         
         

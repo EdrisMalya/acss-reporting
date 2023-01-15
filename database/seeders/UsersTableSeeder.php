@@ -67,6 +67,22 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2022-12-21 12:37:02',
                 'updated_at' => '2022-12-21 12:37:02',
             ),
+            3 => 
+            array (
+                'id' => 10,
+                'name' => 'Edris',
+                'last_name' => 'Malia',
+                'email' => 'edrismalya2@gmail.com',
+                'phone_number' => '0765686732',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$ROPlKb1WMD6mk.z5oziKXeuv7KUr3hY1.k6Hhjm2feUN5t8bWvVZG',
+                'status' => 1,
+                'change_password' => 0,
+                'image' => 'users_picture/jRenkJKMQq82MacNiCpmiXpClZ6IPqj1WGkii5Sj.jpg',
+                'remember_token' => NULL,
+                'created_at' => '2023-01-15 12:40:18',
+                'updated_at' => '2023-01-15 12:40:39',
+            ),
         ));
         
         

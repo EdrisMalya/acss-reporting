@@ -43,6 +43,14 @@ class UserRolesTableSeeder extends Seeder
                 'created_at' => '2022-12-21 12:37:02',
                 'updated_at' => '2022-12-21 12:37:02',
             ),
+            3 => 
+            array (
+                'id' => 21,
+                'user_id' => 10,
+                'role_id' => 2,
+                'created_at' => '2023-01-15 12:40:18',
+                'updated_at' => '2023-01-15 12:40:18',
+            ),
         ));
         
         
