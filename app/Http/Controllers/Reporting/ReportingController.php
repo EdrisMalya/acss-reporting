@@ -39,7 +39,7 @@ class ReportingController extends Controller
                         date('Y-m-d H:i', strtotime($request->get('end_date')))
                     ]);
                 }
-                $datatables = new DatatableBuilder($data, $request, $search);
+                $datatables = new DatatableBuilder($data->orderBy('sdate', 'desc'), $request, $search);
                 $datatables->primary_key = 'idnum';
                 return Inertia::render('Reports/AcssTransactions/AcssTransactionsIndex', [
                     'active' => 'acss-transactions',
