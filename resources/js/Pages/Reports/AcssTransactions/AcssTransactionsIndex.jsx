@@ -10,11 +10,15 @@ import { Button, TextField } from "@mui/material"
 import { Inertia } from "@inertiajs/inertia"
 import dayjs from "dayjs"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
+import { useRecoilState } from "recoil"
+import { fullPageLoading } from "@/atoms/fullPageLoading"
 
 const AcssTransactionsIndex = ({ lang, active, data, start_date, end_date }) => {
     const {translate} = useLanguage()
     const [startDate, setStartDate] = React.useState(start_date)
     const [endDate, setEndDate] = React.useState(end_date)
+
+    const loading = useRecoilState(fullPageLoading)
 
     return (
         <Authenticated active={'reports'} title={`Transactions from ${startDate} to ${endDate}`} navBarOptions={<ReportsLinks active={active} lang={lang} />}>
@@ -49,11 +53,16 @@ const AcssTransactionsIndex = ({ lang, active, data, start_date, end_date }) => 
                                         />
                                         {startDate && endDate && (
                                             <Button onClick={()=>{
+                                                loading[1](true)
                                                 Inertia.get(route(route().current(), {
                                                     ...route().params,
                                                     start_date: startDate,
                                                     end_date: endDate,
-                                                }))
+                                                }), {}, {
+                                                    onSuccess: () => {
+                                                        loading[1](false)
+                                                    }
+                                                })
                                             }} variant={'outlined'} endIcon={<MagnifyingGlassIcon className={'h-4'} /> }>
                                                 {translate('Search')}
                                             </Button>
