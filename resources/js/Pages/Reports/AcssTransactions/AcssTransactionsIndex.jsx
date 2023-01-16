@@ -12,11 +12,13 @@ import dayjs from "dayjs"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline"
 import { useRecoilState } from "recoil"
 import { fullPageLoading } from "@/atoms/fullPageLoading"
+import MuiSelect from "@/Components/MUISelect"
 
-const AcssTransactionsIndex = ({ lang, active, data, start_date, end_date }) => {
+const AcssTransactionsIndex = ({ lang, active, data, start_date, end_date, filter_date }) => {
     const {translate} = useLanguage()
     const [startDate, setStartDate] = React.useState(start_date)
     const [endDate, setEndDate] = React.useState(end_date)
+    const [filterDate, setFilterDate] = React.useState(filter_date)
 
     const loading = useRecoilState(fullPageLoading)
 
@@ -52,20 +54,44 @@ const AcssTransactionsIndex = ({ lang, active, data, start_date, end_date }) => 
                                             renderInput={(params) => <TextField size={'small'} {...params} />}
                                         />
                                         {startDate && endDate && (
-                                            <Button onClick={()=>{
-                                                loading[1](true)
-                                                Inertia.get(route(route().current(), {
-                                                    ...route().params,
-                                                    start_date: startDate,
-                                                    end_date: endDate,
-                                                }), {}, {
-                                                    onSuccess: () => {
-                                                        loading[1](false)
-                                                    }
-                                                })
-                                            }} variant={'outlined'} endIcon={<MagnifyingGlassIcon className={'h-4'} /> }>
-                                                {translate('Search')}
-                                            </Button>
+                                            <>
+                                                <MuiSelect
+                                                    className={'!w-32'}
+                                                    value={filterDate}
+                                                    label={translate('Select date')}
+                                                    onChange={f_date=>{
+                                                        setFilterDate(f_date.target.value)
+                                                    }}
+                                                    options={[
+                                                        {
+                                                            label: translate('Transaction date'),
+                                                            value: 'tdate'
+                                                        },
+                                                        {
+                                                            label: translate('Settled date'),
+                                                            value: 'sdate'
+                                                        },
+                                                        {
+                                                            label: translate('Last update'),
+                                                            value: 'lastUpdate'
+                                                        },
+                                                ]} />
+                                                <Button onClick={()=>{
+                                                    loading[1](true)
+                                                    Inertia.get(route(route().current(), {
+                                                        ...route().params,
+                                                        start_date: startDate,
+                                                        end_date: endDate,
+                                                        filter_date: filterDate
+                                                    }), {}, {
+                                                        onSuccess: () => {
+                                                            loading[1](false)
+                                                        }
+                                                    })
+                                                }} variant={'outlined'} endIcon={<MagnifyingGlassIcon className={'h-4'} /> }>
+                                                    {translate('Search')}
+                                                </Button>
+                                            </>
                                         )}
                                     </div>
                                 </LocalizationProvider>
