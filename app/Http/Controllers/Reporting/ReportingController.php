@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Reporting;
 
+use App\Exports\UsersExport;
 use App\Helpers\DatatableBuilder;
 use App\Http\Controllers\Controller;
 use App\Models\AcssTransactions;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportingController extends Controller
 {
@@ -46,8 +48,15 @@ class ReportingController extends Controller
                     'data' => $datatables->build(),
                     'start_date' => $request->get('start_date'),
                     'end_date' => $request->get('end_date'),
-                    'filter_date' => $request->has('filter_date')?$request->get('filter_date'):'sdate'
+                    'filter_date' => $request->has('filter_date')?$request->get('filter_date'):'sdate',
+                    'show_download_excel' => ($request->has('start_date') && $request->has('end_date') && $request->has('filter_date'))
                 ]);
         }
+    }
+
+    public function downloadExcel($lang, Request $request)
+    {
+        $this->allowed('acss-transactions-access');
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }

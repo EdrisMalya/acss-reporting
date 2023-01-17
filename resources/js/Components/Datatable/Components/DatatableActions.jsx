@@ -14,6 +14,7 @@ export default function DatatableActions({
     actions,
     showNumber,
     tableData,
+    onIgnoreColumnChanged,
 }) {
     const [pageName, setPageName] = useState(null)
 
@@ -34,6 +35,7 @@ export default function DatatableActions({
                     dispatch={dispatch}
                     actions={actions}
                     showNumber={showNumber}
+                    onIgnoreColumnChanged={onIgnoreColumnChanged}
                 />
                 <ReactHTMLTableToExcel
                     id="test-table-xls-button"

@@ -31,6 +31,8 @@ const Datatable = ({
     objectName = null,
     deleteRoute,
     datatableFilters = [],
+    onIgnoreColumnChanged,
+    returnColumns,
 }) => {
     const [data, dispatch] = useReducer(DatatableReducer, DATA_TABLE_INIT_VALUE)
     const [totalPage, setTotalPage] = useState(0)
@@ -68,6 +70,9 @@ const Datatable = ({
                 direction,
             },
         })
+        if (typeof returnColumns !== 'undefined') {
+            returnColumns(columns)
+        }
     }, [])
 
     useEffect(() => {
@@ -106,6 +111,7 @@ const Datatable = ({
                     actions={actions}
                     showNumber={showNumber}
                     tableData={tableData}
+                    onIgnoreColumnChanged={onIgnoreColumnChanged}
                 />
                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg dark:scrollbar-thumb-gray-900">
                     {tableLoading && (
@@ -120,7 +126,7 @@ const Datatable = ({
                             />
                         </div>
                     )}
-                    <div >
+                    <div>
                         <table
                             id={'table-to-xls'}
                             className={`w-full text-sm ${
@@ -171,7 +177,8 @@ const Datatable = ({
                             />
                         </div>
                         <div>
-                            {tableData?.from} - {tableData.to} of {Math.abs(tableData?.total).toLocaleString()}
+                            {tableData?.from} - {tableData.to} of{' '}
+                            {Math.abs(tableData?.total).toLocaleString()}
                         </div>
                     </div>
                 </div>
