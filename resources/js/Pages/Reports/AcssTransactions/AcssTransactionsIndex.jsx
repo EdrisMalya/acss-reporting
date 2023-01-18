@@ -27,9 +27,11 @@ const AcssTransactionsIndex = ({
     const { translate } = useLanguage()
     const [startDate, setStartDate] = React.useState(start_date)
     const [endDate, setEndDate] = React.useState(end_date)
+    const [disableDates, setDisableDates] = React.useState(null)
     const [filterDate, setFilterDate] = React.useState(filter_date)
     const [ignore_columns, setIgnoreColumns] = React.useState([])
     const [columns, setColumns] = React.useState([])
+
     const [downloadExcel, setDownloadExcel] =
         React.useState(show_download_excel)
 
@@ -69,9 +71,16 @@ const AcssTransactionsIndex = ({
                                         <MobileDateTimePicker
                                             size={'small'}
                                             label={translate('From date')}
+                                            disableFuture={true}
                                             inputFormat={'YYYY-MM-DD hh:mm A'}
                                             value={startDate}
                                             onChange={startDateInput => {
+                                                setDisableDates(
+                                                    dayjs(startDateInput).add(
+                                                        5,
+                                                        'month',
+                                                    ),
+                                                )
                                                 let f_date =
                                                     dayjs(
                                                         startDateInput,
@@ -88,9 +97,22 @@ const AcssTransactionsIndex = ({
                                             )}
                                         />
                                         <MobileDateTimePicker
+                                            shouldDisableDate={date => {
+                                                return (
+                                                    new Date(date) >
+                                                    new Date(
+                                                        startDate,
+                                                    ).setMonth(
+                                                        new Date(
+                                                            startDate,
+                                                        ).getMonth() + 4,
+                                                    )
+                                                )
+                                            }}
                                             size={'small'}
                                             label={translate('To date')}
                                             inputFormat={'YYYY-MM-DD hh:mm A'}
+                                            disableFuture={true}
                                             value={endDate}
                                             onChange={endDateInput => {
                                                 let f_date =
@@ -142,7 +164,7 @@ const AcssTransactionsIndex = ({
                                                 />
                                                 <Button
                                                     onClick={() => {
-                                                        loading[1](true)
+                                                        loading[1](false)
                                                         Inertia.get(
                                                             route(
                                                                 route().current(),
