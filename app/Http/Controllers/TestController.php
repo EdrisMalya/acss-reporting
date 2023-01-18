@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\AcssTransactionsExport;
 use App\Exports\UsersExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 

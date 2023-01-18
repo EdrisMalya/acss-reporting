@@ -6,8 +6,9 @@ use App\Models\AcssTransactions;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class AcssTransactionsExport implements FromView
+class AcssTransactionsExport implements FromView, WithChunkReading
 {
     public $start_date;
     public $end_date;
@@ -36,5 +37,10 @@ class AcssTransactionsExport implements FromView
             'columns' => $this->columns,
             'ignore_columns' => $this->ignore_columns == null? []: $this->ignore_columns
         ]);
+    }
+
+    public function chunkSize() : int
+    {
+        return 1000;
     }
 }
