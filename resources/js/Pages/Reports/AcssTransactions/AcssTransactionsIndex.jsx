@@ -164,7 +164,7 @@ const AcssTransactionsIndex = ({
                                                 />
                                                 <Button
                                                     onClick={() => {
-                                                        loading[1](false)
+                                                        loading[1](true)
                                                         Inertia.get(
                                                             route(
                                                                 route().current(),
