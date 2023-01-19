@@ -16,8 +16,10 @@ class ReportingController extends Controller
         switch ($type){
             case 'acss-transactions':
                 $this->allowed('acss-transactions-access');
-                $datatable = null;
-
+                /*dd([
+                    date('Y-m-d H:i:s', strtotime($request->get('start_date').' 23:59:00')),
+                    date('Y-m-d H:i:s', strtotime($request->get('end_date').' 12:00:00'))
+                ]);*/
                 if($request->has('start_date') && $request->has('end_date') && $request->has('filter_date')){
                     $data = AcssTransactions::query();
                     $search = [
@@ -40,8 +42,8 @@ class ReportingController extends Controller
                     if($request->has('start_date') && $request->has('end_date')){
                         $filter_date = $request->has('filter_date') ? $request->get('filter_date'): 'sdate';
                         $data = $data->whereBetween($filter_date, [
-                            date('Y-m-d H:i', strtotime($request->get('start_date'))),
-                            date('Y-m-d H:i', strtotime($request->get('end_date')))
+                            date('Y-m-d H:i:s', strtotime($request->get('start_date').' 12:00:00')),
+                            date('Y-m-d H:i:s', strtotime($request->get('end_date').' 23:59:00'))
                         ]);
                     }
                     $datatables = new DatatableBuilder($data->orderBy('sdate', 'desc'), $request, $search);

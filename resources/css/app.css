@@ -82,4 +82,31 @@ body{
 .home-page-links .active{
     @apply !font-bold text-[rgb(50,200,200)]
 }
+.rdrCalendarWrapper{
+    @apply dark:!bg-[#1d2429] !w-full
+}
+.rdrMonth{
+    @apply !w-full
+}
+.rdrCalendarWrapper select {
+    @apply dark:!bg-[#1d2429] dark:!text-white dark:!border dark:!border-gray-300
+}
+.rdrDayDisabled{
+    @apply dark:!bg-gray-700
+}
+.rdrDateDisplayWrapper{
+    @apply dark:!bg-[#1d2429]
+}
+.rdrNextPrevButton{
+    @apply dark:!bg-gray-800
+}
+.rdrDateInput{
+    @apply dark:!bg-[#1d2429] dark:!shadow-md dark:!shadow-gray-900
+}
 
+.rdrDayNumber span{
+    @apply dark:!text-white;
+}
+.rdrDayPassive{
+    @apply dark:!text-gray-500 dark:!bg-gray-800
+}

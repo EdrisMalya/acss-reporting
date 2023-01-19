@@ -14,6 +14,8 @@ import { useRecoilState } from 'recoil'
 import { fullPageLoading } from '@/atoms/fullPageLoading'
 import MuiSelect from '@/Components/MUISelect'
 import { useForm } from '@inertiajs/inertia-react'
+import FilterAltIcon from '@mui/icons-material/FilterAlt'
+import TransactionFilterModel from '@/Pages/Reports/AcssTransactions/TransactionFilterModel'
 
 const AcssTransactionsIndex = ({
     lang,
@@ -31,6 +33,8 @@ const AcssTransactionsIndex = ({
     const [filterDate, setFilterDate] = React.useState(filter_date)
     const [ignore_columns, setIgnoreColumns] = React.useState([])
     const [columns, setColumns] = React.useState([])
+
+    const [filter, setFilter] = React.useState(false)
 
     const [downloadExcel, setDownloadExcel] =
         React.useState(show_download_excel)
@@ -68,100 +72,16 @@ const AcssTransactionsIndex = ({
                                         className={
                                             'flex items-center space-x-3'
                                         }>
-                                        <MobileDateTimePicker
-                                            size={'small'}
-                                            label={translate('From date')}
-                                            disableFuture={true}
-                                            inputFormat={'YYYY-MM-DD hh:mm A'}
-                                            value={startDate}
-                                            onChange={startDateInput => {
-                                                setDisableDates(
-                                                    dayjs(startDateInput).add(
-                                                        5,
-                                                        'month',
-                                                    ),
-                                                )
-                                                let f_date =
-                                                    dayjs(
-                                                        startDateInput,
-                                                    ).format(
-                                                        'YYYY-MM-DD hh:mm A',
-                                                    )
-                                                setStartDate(f_date)
+                                        <Button
+                                            variant={'outlined'}
+                                            onClick={() => {
+                                                setFilter(true)
                                             }}
-                                            renderInput={params => (
-                                                <TextField
-                                                    size={'small'}
-                                                    {...params}
-                                                />
-                                            )}
-                                        />
-                                        <MobileDateTimePicker
-                                            shouldDisableDate={date => {
-                                                return (
-                                                    new Date(date) >
-                                                    new Date(
-                                                        startDate,
-                                                    ).setMonth(
-                                                        new Date(
-                                                            startDate,
-                                                        ).getMonth() + 4,
-                                                    )
-                                                )
-                                            }}
-                                            size={'small'}
-                                            label={translate('To date')}
-                                            inputFormat={'YYYY-MM-DD hh:mm A'}
-                                            disableFuture={true}
-                                            value={endDate}
-                                            onChange={endDateInput => {
-                                                let f_date =
-                                                    dayjs(endDateInput).format(
-                                                        'YYYY-MM-DD hh:mm A',
-                                                    )
-                                                setEndDate(f_date)
-                                            }}
-                                            renderInput={params => (
-                                                <TextField
-                                                    size={'small'}
-                                                    {...params}
-                                                />
-                                            )}
-                                        />
+                                            endIcon={<FilterAltIcon />}>
+                                            Filter
+                                        </Button>
                                         {startDate && endDate && (
                                             <>
-                                                <MuiSelect
-                                                    className={'max-w-fit'}
-                                                    value={filterDate}
-                                                    label={translate(
-                                                        'Select date',
-                                                    )}
-                                                    onChange={f_date => {
-                                                        setFilterDate(
-                                                            f_date.target.value,
-                                                        )
-                                                    }}
-                                                    options={[
-                                                        {
-                                                            label: translate(
-                                                                'Transaction date',
-                                                            ),
-                                                            value: 'tdate',
-                                                        },
-                                                        {
-                                                            label: translate(
-                                                                'Settled date',
-                                                            ),
-                                                            value: 'sdate',
-                                                        },
-                                                        {
-                                                            label: translate(
-                                                                'Last update',
-                                                            ),
-                                                            value: 'lastUpdate',
-                                                        },
-                                                    ]}
-                                                />
                                                 <Button
                                                     onClick={() => {
                                                         loading[1](true)
@@ -340,6 +260,20 @@ const AcssTransactionsIndex = ({
                     ]}
                 />
             </div>
+            {filter && (
+                <TransactionFilterModel
+                    startDate={startDate}
+                    filter_date={filterDate}
+                    endDate={endDate}
+                    onClose={date => {
+                        setStartDate(date.start_date)
+                        setEndDate(date.end_date)
+                        setFilterDate(date.filter_date)
+                        setFilter(false)
+                    }}
+                    translate={translate}
+                />
+            )}
         </Authenticated>
     )
 }
