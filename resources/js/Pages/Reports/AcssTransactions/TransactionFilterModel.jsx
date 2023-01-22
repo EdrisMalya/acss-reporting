@@ -85,20 +85,7 @@ const TransactionFilterModel = ({
                     <DateRange
                         editableDateInputs={true}
                         onChange={item => {
-                            let month_dif = monthDiff(
-                                [item.selection][0].startDate,
-                                [item.selection][0].endDate,
-                            )
-                            if (month_dif > 4) {
-                                swal({
-                                    icon: 'error',
-                                    title: translate(
-                                        'Dates cannot be selected more then 4 months',
-                                    ),
-                                })
-                            } else {
-                                setState([item.selection])
-                            }
+                            setState([item.selection])
                         }}
                         moveRangeOnFirstSelection={false}
                         ranges={state}

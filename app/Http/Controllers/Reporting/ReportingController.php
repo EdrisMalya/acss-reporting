@@ -16,10 +16,6 @@ class ReportingController extends Controller
         switch ($type){
             case 'acss-transactions':
                 $this->allowed('acss-transactions-access');
-                /*dd([
-                    date('Y-m-d H:i:s', strtotime($request->get('start_date').' 23:59:00')),
-                    date('Y-m-d H:i:s', strtotime($request->get('end_date').' 12:00:00'))
-                ]);*/
                 if($request->has('start_date') && $request->has('end_date') && $request->has('filter_date')){
                     $data = AcssTransactions::query();
                     $search = [
